@@ -1,6 +1,5 @@
 const redux = require('redux');
 
-// Reducer function
 const counterReducer = (state = { counter: 0 }, action) => {
   switch (action.type) {
     case 'increment':
@@ -11,27 +10,41 @@ const counterReducer = (state = { counter: 0 }, action) => {
       return {
         counter: state.counter - 1
       };
+    case 'INCREMENTBY2':
+      return {
+        counter: state.counter + 2
+      };
+    case 'DECREMENTBY2':
+      return {
+        counter: state.counter - 2
+      };
     default:
       return state;
   }
 };
 
-// Creating the store
+
 const store = redux.createStore(counterReducer);
 
-// Subscriber function
+
 const counterSubscriber = () => {
   const latestState = store.getState();
-  console.log(latestState);
+  console.log('Current Counter:', latestState.counter);
 };
 
-// Subscribing to the store
+
 store.subscribe(counterSubscriber);
 
-// Dispatching the 'increment' action 5 times
+
 for (let i = 0; i < 5; i++) {
   store.dispatch({ type: 'increment' });
 }
 
-// Dispatching the 'decrement' action
+
 store.dispatch({ type: 'decrement' });
+
+
+store.dispatch({ type: 'INCREMENTBY2' });
+
+
+// store.dispatch({ type: 'DECREMENTBY2' });
